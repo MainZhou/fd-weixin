@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyoi.base.dao.MenuDao">
+
+    <resultMap type="Menu" id="MenuMap" autoMapping="true">
+        <id property="guid" column="guid"/>
+        <association property="parentMenu" javaType="Menu">
+            <id property="guid" column="parentMenuId"/>
+            <result property="menuName" column="parentMenuName"/>
+            <association property="icon" javaType="Icon">
+                <id property="guid" column="parentIconId"/>
+                <result property="cssName" column="parentIconCssName"/>
+            </association>
+        </association>
+        <association property="icon" javaType="Icon">
+            <id property="guid" column="iconId"/>
+            <result property="cssName" column="cssName"/>
+        </association>
+    </resultMap>
+	
+    <!-- 添加一个实体的公共实现 -->
+    <insert id="add" parameterType="Menu">
+        insert into tsys_menu
+        (guid,menuName,parentId,sortNum,hint,iconId,entryUrl)
+        values
+        (#{guid},#{menuName},#{parentMenu.guid},#{sortNum},#{hint},#{icon.guid},#{entryUrl})
+    </insert>
+
+    <!-- 批量添加实体List集合的公共实现 -->
+    <insert id="addBatch" parameterType="list">
+        insert into tsys_menu
+        (guid,menuName,parentId,sortNum,hint,iconId,entryUrl)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{guid},#{menuName},#{parentMenu.guid},#{sortNum},#{hint},#{icon.guid},#{entryUrl})
+        </foreach>
+    </insert>
+    
+
+    <!-- 通过ID查找实体的公共实现 -->
+    <select id="findById" resultMap="MenuMap">
+        select tableAlias.*,
+        parent.guid parentMenuId,
+        parent.menuName parentMenuName,
+        icon.guid as iconId,
+        icon.cssName as cssName
+        from tsys_menu tableAlias
+        left join tsys_menu parent on tableAlias.parentId = parent.guid
+        left join tsys_icon icon  on tableAlias.iconId = icon.guid
+        where tableAlias.guid=#{guid}
+    </select>
+
+    <!-- 查找所有实体的公共实现 -->
+    <select id="findAll" resultMap="MenuMap">
+        select * from tsys_menu
+    </select>
+	
+    <!-- 条件查询 -->
+    <select id="findByCondition" resultMap="MenuMap">
+        select tableAlias.*,
+        parent.guid parentMenuId,
+        parent.menuName parentMenuName,
+        icon.guid as iconId,
+        icon.cssName as cssName
+        from tsys_menu tableAlias
+        left join tsys_menu parent on tableAlias.parentId = parent.guid
+        left join tsys_icon icon  on tableAlias.iconId = icon.guid
+        <where>
+            <foreach item="item" index="key" collection="map"
+                     open="" separator=" AND " close="">${key} like #{item}
+            </foreach>
+        </where>
+        <if test="null != sort and '' != sort and null != order and '' != order">
+            order by ${sort} ${order}
+        </if>
+    </select>
+
+    <!-- 根据实体进行唯一性判断 -->
+    <select id="findByDomain" resultMap="MenuMap">
+        select * from tsys_menu tableAlias
+        <where>
+            <if test="null != guid and '' != guid">GUID != #{guid}</if>
+            <if test="null != menuName and '' != menuName"> AND menuName=#{menuName}</if>
+            <if test="null != parentMenu and '' != parentMenu.guid"> AND parentId=#{parentMenu.guid}</if>
+            <if test="null != sortNum and '' != sortNum"> AND sortNum=#{sortNum}</if>
+            <if test="null != hint and '' != hint"> AND hint=#{hint}</if>
+            <if test="null != icon and '' != icon.guid"> AND iconId=#{icon.guid}</if>
+            <if test="null != entryUrl and '' != entryUrl"> AND entryUrl=#{entryUrl}</if>
+            
+        </where>
+    </select>
+
+    <!-- 查找一级菜单 -->
+    <select id="findLevel1Menu" resultType="com.boyoi.base.domain.Menu">
+        select * from tsys_menu
+        where parentId is null or parentId = ''
+    </select>
+
+    <!-- 通过父菜单查找下面的所有子菜单 -->
+    <select id="findChildMenuByParentMenuId" resultType="com.boyoi.base.domain.Menu">
+        select * from tsys_menu
+        where parentId = #{parentMenuId}
+    </select>
+
+    <!-- 更新实体的公共实现 -->
+    <update id="update" parameterType="Menu">
+        update tsys_menu tableAlias
+        set
+        menuName=#{menuName},
+        parentId=#{parentMenu.guid},
+        sortNum=#{sortNum},
+        hint=#{hint},
+        iconId=#{icon.guid},
+        entryUrl=#{entryUrl}
+        
+        where guid=#{guid}
+    </update>
+
+    <!-- 更新实体的公共实现(为Null或"" 不更新该字段) -->
+    <update id="updateByNotEmpty" parameterType="Menu">
+        update tsys_menu tableAlias
+        <set>
+            <if test="null != guid and '' != guid">guid=#{guid},</if>
+            <if test="null != menuName and '' != menuName">menuName=#{menuName},</if>
+            <if test="null != parentMenu and '' != parentMenu.guid">parentId=#{parentMenu.guid},</if>
+            <if test="null != sortNum and '' != sortNum">sortNum=#{sortNum},</if>
+            <if test="null != hint and '' != hint">hint=#{hint},</if>
+            <if test="null != icon and '' != icon.guid">iconId=#{icon.guid},</if>
+            <if test="null != entryUrl and '' != entryUrl">entryUrl=#{entryUrl}</if>
+            
+        </set>
+        where guid=#{guid}
+    </update>
+
+    <!-- 通过实体，取出id,删除对应的实体的公共实现 -->
+    <delete id="del">
+        delete from tsys_menu
+        where
+        guid=#{guid}
+    </delete>
+
+    <!-- 批量删除的公共实现 -->
+    <delete id="delBatch" parameterType="list">
+        delete from tsys_menu
+        where
+        guid in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

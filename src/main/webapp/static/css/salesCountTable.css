@@ -1,0 +1,74 @@
+.tableDiv {
+    border: 1px solid #dddeee;
+    width: 99%;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.noFixed{
+    margin-top: -440px;
+    margin-left: 500px;
+    overflow-x:scroll;
+    overflow-y:hidden;
+}
+.noFixed2{
+    overflow-x:scroll;
+    overflow-y:scroll;
+}
+.fixed2{
+    overflow-x:hidden;
+    overflow-y:scroll;
+}
+.one td,.two td,.three td,.four td {
+    white-space: nowrap;
+}
+.one thead tr td ,.two thead tr td,.three thead tr td,.four thead tr td{
+    border-right: 1px solid #dddeee;
+    text-align: center;
+    background: url("../../static/img/table-header-bg.png");
+    background-size:500px 52px;
+    border-collapse: collapse;
+}
+.one thead tr ,.two thead tr,.three thead tr,.four thead tr {
+    border-bottom: 1px solid #dddeee;
+}
+.one tbody tr td,.two tbody tr td,.three tbody tr td,.four tbody tr td,.five tbody tr td,.six tbody tr td {
+    border-bottom: 1px solid #dddeee;
+    border-right: 1px solid #dddeee;
+    height: 30px;
+    border-bottom: none;
+}
+.one tbody tr,.two tbody tr,.three tbody tr,.four tbody tr,.five tbody tr,.six tbody tr{
+    border-bottom: 1px solid #dddeee;
+}
+.tWidth {
+    width: 80px;;
+}
+.tWidth2 {
+    width: 240px;;
+}
+.tWidth3 {
+    width: 80px;;
+}
+.one{
+    width:500px ;
+}
+.two{
+    width: 480px;
+    float: left;
+}
+.three{
+    width: 2880px;
+    float: left;
+    margin-left: 480px;
+}
+.four{
+    float: left;
+    margin-left: 3360px;
+    width: 120px;
+}
+.one thead tr td,.two thead tr td,.four thead tr td{
+    height: 50px;
+}
+.three thead tr td{
+     height: 25px;
+ }

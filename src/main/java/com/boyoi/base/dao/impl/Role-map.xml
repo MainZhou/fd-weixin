@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyoi.base.dao.RoleDao">
+
+    <resultMap type="Role" id="RoleMap" autoMapping="true">
+    </resultMap>
+    <resultMap id="RoleModuleMap" type="Role">
+        <id column="guid" property="guid"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="modules" resultMap="ModuleMap"/>
+    </resultMap>
+    <resultMap type="Module" id="ModuleMap" autoMapping="true">
+        <id property="guid" column="moduleId"/>
+        <collection property="urls" ofType="ModuleUrl">
+            <result property="url" column="url"/>
+        </collection>
+    </resultMap>
+
+    <!-- 添加一个实体的公司实现 -->
+    <insert id="add" parameterType="Role">
+        insert into tsys_role
+        (GUID,roleName)
+        values
+        (#{guid},#{roleName})
+    </insert>
+
+    <!-- 添加授权的模块到中间表 -->
+    <insert id="addModule">
+        insert into tsys_role_module
+        (guid, roleId, moduleId)
+        values
+        (#{param1}, #{param2}, #{param3})
+    </insert>
+
+    <!-- 通过ID查找实体的公共实现 -->
+    <select id="findById" resultMap="RoleMap">
+        select * from tsys_role tableAlias where tableAlias.GUID=#{guid}
+    </select>
+
+    <!-- 查找所有实体的公共实现 -->
+    <select id="findAll" resultMap="RoleMap">
+        select * from tsys_role
+    </select>
+
+    <!-- 条件查询 -->
+    <select id="findByCondition" resultMap="RoleMap">
+        select * from tsys_role tableAlias
+        <where>
+            <foreach item="item" index="key" collection="map"
+                     open="" separator=" AND " close="">${key} like #{item}
+            </foreach>
+        </where>
+        <choose>
+            <when test="null != sort and '' != sort and null != order and '' != order">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by tableAlias.operationTime desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 根据实体进行唯一性判断 -->
+    <select id="findByDomain" resultMap="RoleMap">
+        select * from tsys_role tableAlias
+        <where>
+            <if test="null != guid and '' != guid">GUID != #{guid}</if>
+            <if test="null != roleName and '' != roleName"> AND roleName=#{roleName}</if>
+            
+        </where>
+    </select>
+
+    <!-- 通过角色ID查找角色对应的模块 -->
+    <select id="findModuleByRoleId" resultType="com.boyoi.base.domain.Module">
+        select module.* from
+        tsys_role_module rm, tsys_module module
+        where rm.roleId = #{roleId}
+        and rm.moduleId = module.guid
+    </select>
+
+    <!-- 通过角色ID查找角色没有授权的模块 -->
+    <select id="findNoGranModuleByRoleId" resultType="com.boyoi.base.domain.Module">
+        select module.* from tsys_module module
+        where module.guid not in (select moduleId from tsys_role_module where roleId=#{roleId})
+    </select>
+
+    <!-- 查找所有的角色，并带有模块对象 -->
+    <select id="findAllRoleWithModule" resultMap="RoleModuleMap">
+        select role.*, moduleUrl.moduleId as moduleId, moduleUrl.url
+        from
+        tsys_role role,tsys_role_module roleModule, tsys_module_url moduleUrl
+        where role.guid = roleModule.roleId and moduleUrl.moduleId = roleModule.moduleId
+    </select>
+
+    <!-- 更新实体的公共实现 -->
+    <update id="update" parameterType="Role">
+        update tsys_role tableAlias
+        set
+        roleName=#{roleName},
+        operationTime=now()
+
+        where guid=#{guid}
+    </update>
+
+    <!-- 更新实体的公共实现(为Null或"" 不更新该字段) -->
+    <update id="updateByNotEmpty" parameterType="Role">
+        update tsys_role tableAlias
+        <set>
+            <if test="null != guid and '' != guid">GUID=#{guid},</if>
+            <if test="null != roleName and '' != roleName">roleName=#{roleName}</if>
+            
+        </set>
+        where guid=#{guid}
+    </update>
+
+    <!-- 通过实体，取出id,删除对应的实体的公共实现 -->
+    <delete id="del">
+        delete from tsys_role
+        where
+        guid=#{guid}
+    </delete>
+
+    <!-- 删除角色对应的模块 -->
+    <delete id="delModuleByRoleId">
+        delete from tsys_role_module
+        where roleId = #{param1}
+        and moduleId = #{param2}
+    </delete>
+
+    <!-- 批量删除的公共实现 -->
+    <delete id="delBatch" parameterType="list">
+        delete from tsys_role
+        where
+        guid in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
