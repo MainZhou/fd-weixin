@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	 
+	<!-- 自动扫描与装配配置，base-package收索包名下的注解 -->
+	<context:component-scan base-package="com.boyoi.base.service"/>
+    <context:component-scan base-package="com.boyoi.core.service"/>
+    <context:component-scan base-package="com.boyoi.work.service"/>
+
+    <!--普通类调用Spring bean对象,的工具类 -->
+    <bean id="springTool" class="com.boyoi.core.common.SpringTool"/>
+
+    <!-- 保存操作日志 -->
+    <bean class="com.boyoi.core.utils.optlog.OptLogSave"
+          init-method="init"
+          destroy-method="destory">
+        <property name="logOptService" ref="logOptServiceImpl"/>
+    </bean>
+
+    <!-- 保存Refresh Key -->
+    <bean class="com.boyoi.work.utils.WxSessionRefreshKeyUtil"
+          init-method="start">
+    </bean>
+
+    <!-- 保存用户信息 -->
+    <bean class="com.boyoi.work.utils.WxUserInfoSaveUtil"
+          init-method="unSerialize">
+    </bean>
+
+</beans>

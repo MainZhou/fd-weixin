@@ -1,0 +1,19 @@
+body {margin:0px; background:url(../img/public_bg.png);}
+html,body{width:100%;height:100%;}
+
+/**背景图**/
+.paperBg1{width:100%;height:100%;overflow:hidden;background:url(../img/lineBg.png) repeat-x #fff;}
+.paperBg2{width:100%;height:100%;overflow:hidden;background:url(../img/coloud.png) no-repeat center top;}
+.paperBg3{width:100%;height:100%;overflow:hidden;background:url(../img/topIco.png) no-repeat center top;}
+.paperBgLBto{width:100%;height:100%;overflow:hidden;background:url(../img/bgImgL.png) no-repeat left bottom;}
+.paperBgRBto{width:100%;height:100%;overflow:hidden;background:url(../img/bgImgR.png) no-repeat right bottom;}
+
+/**登录区域**/
+.logo{padding:15px 0 0 15px;}
+.loginArea{width:598px;height:400px;margin:10% auto 0 auto;}
+.loginArea .logoZi{width:598px;height:48px;}
+.loginArea .formArea{width:598px;height:359px;}
+
+
+/**版权**/
+.cpy{width:100%;height:24px;text-align:center;position:fixed;bottom:0px;font-size:12px;}

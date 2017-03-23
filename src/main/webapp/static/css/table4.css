@@ -1,0 +1,185 @@
+/*2016-6-29*/
+body{font-family: '宋体';
+    line-height:1.4;
+    background:white;
+}
+body,input,textarea,select{
+    font-size:14px;
+}
+body,h1,h3,h4,p,ul,ol{
+    margin:0;
+}
+ul,ol{
+    padding-left:0;
+    list-style-type:none;
+}
+.f16{font-size: 16px;}
+.fa{position: relative;}
+/*image with no-border*/
+a img{border:0;}
+.l{float:left;}
+.msg_holder{float:left;margin-left: 10px;color:red;}
+.r{float:right;}
+.ml2{margin-left: 2px;}
+.mli12{margin-left: -12px;}
+.cle{clear: both;}
+.ml20{margin-left: 20px;}
+.ml30{margin-left: 5px;}
+.ml45{margin-left: 45px;}
+.mr20{margin-right: 20px;}
+.mb20{margin-bottom: 20px;}
+.mb10{margin-bottom: 0px;}
+.mt10{margin-top:10px;}
+.mt20{margin-top:20px;}
+.mt5{margin-top: 5px;}
+.tbtext_l{text-align: left;}
+.tbtext_r{text-align: right;}
+.tb_nowrap{white-space:nowrap;}
+/*link*/
+a:link{color:#000;text-decoration:none;}
+a:visited{color:#000;text-decoration:none;}
+a:hover{color:#000;text-decoration:none;}
+a:active{color:#000;text-decoration:none;}
+
+a.lnkGreen{color:#d7edea;}
+/*三角形*/
+.triangle-up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #ff9000;
+    position: absolute;
+    top: 2px;
+    left: 70px;
+}
+.triangle-down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #ff9000;
+    position: absolute;
+    top: 2px;
+    left: 70px;
+
+}
+.triangle-topright {cursor: pointer;
+    border-top: 8px solid #ff9000;
+    border-left: 8px solid transparent;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.triangle-topright2 {cursor: pointer;
+    border-top: 8px solid #e8d04a;
+    border-left: 8px solid transparent;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.add-tag{
+    display: inline-block;
+    width: 84px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    background: #00a75a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;}
+.add-tag:hover{background: #007c50;color: #fff;}
+/*页面样式*/
+.tableContainer{width: 901px;overflow: hidden;padding: 4px;}
+.tableContainer .Container{margin-top: 18px;}
+.tableContainer .Container .line {height: 1px;width: 800px; background-color: #bcbcbc; float: right;margin-top: 20px}
+.tableContainer .Container .name{font-size: 14px;font-weight: bold;line-height: 40px; cursor: pointer;position: relative;}
+.tableContainer .Container .name span{margin-left: 6px;}
+/*常用表格*/
+.tti{text-indent:6px;}
+.tti2{text-indent:20px;}
+.carno_s{width:134px;height:30px;}
+.tableard{margin: 20px  auto 0px auto;}
+.tabn{border:1px solid #dddeee;border-left:0px;border-right:0px;border-collapse:collapse;line-height:16px;}
+.tabn_1 td{padding:0 6px;}
+.tbn2 tr td input{height:30px;}
+.tbn2 tr td{height:34px;}
+.tabn thead .headStyle {text-align:center;border-collapse:collapse;background:#EFEFEF;font-size:16px; }
+.tabn thead .headStyle td{color:#000;font-size:14px;text-align:center;border:1px solid #d3d3d3;border-collapse:collapse;}
+.tabn thead .headStyle1 {text-align:center;border:none;border-collapse:collapse;}
+.tabn tbody .bodyStyle{text-align:center;border-collapse:collapse; line-height: 16px;}
+.tabn tbody .bodyStyle td{color:#000;font-size:14px;text-align:center;border:1px solid #d3d3d3;border-collapse:collapse;}
+.tabn tbody .bodyStyle2{text-align:center;border-collapse:collapse; line-height: 16px;}
+.tabn tbody .bodyStyle2 td{color:#000;font-size:14px;text-align:center;border:1px solid #d3d3d3;border-collapse:collapse;}
+.tabn tbody .bodyStyle:hover .ipt{background-color: #eaf2ff;}
+.tabn tbody .bodyStyle:hover{background-color: #eaf2ff;}
+.tl{text-align: left;}
+.trcolor{background-color: #fafafa;}
+.theadbg{background: url("../IMG/table-header-bg.png") repeat; height: 24px;}
+.tabn tbody .bodyStyle1 td{background:#fff;color:black;font-size:14px;border:1px solid black;border-collapse:collapse;line-height:24px;padding-left: 4px;}
+.tabn tbody .bodyStyle1 .td1{background:#ffed99;line-height: 18px;color:#296fb7}
+.del_btn{color: red;cursor: pointer;}
+.bj_btn{color: green;cursor: pointer;}
+
+.del_rkbtn{color: red;cursor: pointer;}
+.bj_rkbtn{color: green;cursor: pointer;}
+.del_ckbtn{color: red;cursor: pointer;}
+.bj_ckbtn{color: green;cursor: pointer;}
+.del_bogbtn{color: red;cursor: pointer;}
+.bj_bogbtn{color: green;cursor: pointer;}
+.del_liquidbtn{color: red;cursor: pointer;}
+.bj_liquidbtn{color: green;cursor: pointer;}
+
+.remark{margin-left:68px; width:418px;}
+.close_btn{    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #adadad;
+    border-radius: 4px;
+}
+.close_btn:hover{color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;}
+.redline{ border:1px solid red;}
+.title_1{background:#00a75a;border-radius: 4px 4px 0 0 ;padding:0 6px;height: 30px;line-height: 30px;text-align: center;color:white;font-size:16px;}
+.title_line{border-bottom: 1px solid #00a75a;height: 30px;}
+
+.tbn3 tr td input{width:80px; }
+
+/*新添加样式*/
+.tbn4 tr input{width: 100px;}
+.tbn3 tr td{}
+.title_bg{display:inline-block;height: 30px;background-color: #cbe9ed;padding:0 10px;line-height: 30px;color: #656565;}
+.ovl{overflow: hidden;}
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 0;
+    padding: 6px 12px;
+    height: 24px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 24px;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    margin-top: -8px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 20px;
+    right: 3px;
+}
